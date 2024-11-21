@@ -1,7 +1,21 @@
-import { bucket } from "./storage";
+import { table } from "./storage";
 
-export const myApi = new sst.aws.Function("MyApi", {
-  url: true,
-  link: [bucket],
-  handler: "packages/functions/src/api.handler"
+// Create the API
+export const api = new sst.aws.ApiGatewayV2("Api", {
+  transform: {
+    route: {
+      handler: {
+        link: [table],
+      },
+      args: {
+        auth: { iam: true }
+      },
+    }
+  }
 });
+
+api.route("GET /media", "packages/functions/src/list.main");
+api.route("POST /media", "packages/functions/src/upload.main");
+api.route("GET /media/{id}", "packages/functions/src/get.main");
+api.route("PUT /media/{id}", "packages/functions/src/update.main");
+api.route("DELETE /media/{id}", "packages/functions/src/delete.main");

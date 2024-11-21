@@ -1,5 +1,5 @@
 {
-  "name": "@monorepo-template/core",
+  "name": "@trias-transcription-app/core",
   "version": "0.0.0",
   "scripts": {
     "test": "sst shell vitest"
@@ -14,6 +14,7 @@
     "sst": "*"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.145",
     "vitest": "^2.0.3"
   }
 }

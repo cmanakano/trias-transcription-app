@@ -1,11 +1,15 @@
 {
-  "name": "@monorepo-template/functions",
+  "name": "@trias-transcription-app/functions",
   "version": "0.0.0",
   "dependencies": {
-    "@monorepo-template/core": "*",
-    "sst": "*"
+    "@aws-sdk/client-dynamodb": "^3.691.0",
+    "@aws-sdk/lib-dynamodb": "^3.691.0",
+    "@trias-transcription-app/core": "*",
+    "sst": "*",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.137"
+    "@types/aws-lambda": "^8.10.145",
+    "@types/uuid": "^10.0.0"
   }
 }
