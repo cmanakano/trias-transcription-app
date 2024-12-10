@@ -17,6 +17,7 @@ export default function Media() {
   const [media, setMedia] = useState<null | MediaType>(null);
   const [title, setTitle] = useState("");
   const [languagecode, setLanguagecode] = useState("");
+  const [speakernumber, setSpeakernumber] = useState("0");
   const [customvocabulary, setCustomvocabulary] = useState("");
   const [emailto, setEmailto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -30,14 +31,15 @@ export default function Media() {
     async function onLoad() {
       try {
         const media = await loadMedia();
-        const { title, attachment, languagecode, customvocabulary, emailto } = media;
+        const { title, attachment, languagecode, speakernumber, customvocabulary, emailto } = media;
 
         if (attachment) {
-          media.attachmentURL = await Storage.vault.get(attachment);
+          media.attachmentURL = await Storage.get(attachment);
         }
 
         setTitle(title);
         setLanguagecode(languagecode);
+        setSpeakernumber(speakernumber);
         setCustomvocabulary(customvocabulary);
         setEmailto(emailto);
         setMedia(media);
@@ -96,6 +98,7 @@ export default function Media() {
         title: title,
         attachment: attachment,
         languagecode: languagecode,
+        speakernumber: speakernumber,
         customvocabulary: customvocabulary,
         emailto: emailto,
       });
@@ -151,6 +154,14 @@ export default function Media() {
                 as="textarea"
                 value={languagecode}
                 onChange={(e) => setLanguagecode(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="speakernumber">
+              <Form.Control
+                size="lg"
+                as="textarea"
+                value={speakernumber}
+                onChange={(e) => setSpeakernumber(e.target.value)}
               />
             </Form.Group>
             <Form.Group controlId="customvocabulary">

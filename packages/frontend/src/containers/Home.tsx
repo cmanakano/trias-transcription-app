@@ -46,7 +46,7 @@ export default function Home() {
         <LinkContainer to="/media/new">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
-            <span className="ms-2 fw-bold">Create a new note</span>
+            <span className="ms-2 fw-bold">Create a new transcription</span>
           </ListGroup.Item>
         </LinkContainer>
         {media.map(({ mediaId, title, createdAt }) => (

@@ -22,14 +22,6 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
-    "Reformats": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
-    "Transcriptions": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
     "Uploads": {
       "name": string
       "type": "sst.aws.Bucket"

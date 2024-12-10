@@ -10,6 +10,7 @@ export const main = Util.handler(async (event) => {
   let data = {
     title: "",
     attachment: "",
+    speakernumber: "",
     languagecode: "",
     customvocabulary: "",
     emailto: "",
@@ -27,6 +28,7 @@ export const main = Util.handler(async (event) => {
       mediaId: uuid.v1(), // A unique uuid
       title: data.title, // Parsed from request body
       attachment: data.attachment, // Parsed from request body
+      speakernumber: data.speakernumber,
       languagecode: data.languagecode, // Parsed from request body
       customvocabulary: data.customvocabulary, // Parsed from request body
       emailto: data.emailto,

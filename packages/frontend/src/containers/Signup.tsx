@@ -44,12 +44,14 @@ export default function Signup() {
             });
             setIsLoading(false);
             setNewUser(newUser);
-        } catch (e) {
-            if (e.name === "UsernameExistsException") {
-                handleUsernameExistsException();
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                if (e.name === "UsernameExistsException") {
+                    handleUsernameExistsException();
+                }
+                onError(e);
+                setIsLoading(false);
             }
-            onError(e);
-            setIsLoading(false);
         }
     }
 
@@ -58,16 +60,18 @@ export default function Signup() {
             await Auth.signIn(fields.email, fields.password);
             userHasAuthenticated(true);
             nav("/");
-        } catch (e) {
-            if (e.name === "UserNotConfirmedException") {
-                handleUserNotConfirmedException();
-            } else if (e.name === "NotAuthorizedException") {
-                alert("It looks like you are already registered. Redirecting to Login...");
-                nav("/login");
-            } else {
-                onError(e);
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                if (e.name === "UserNotConfirmedException") {
+                    handleUserNotConfirmedException();
+                } else if (e.name === "NotAuthorizedException") {
+                    alert("It looks like you are already registered. Redirecting to Login...");
+                    nav("/login");
+                } else {
+                    onError(e);
+                }
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }
     }
 

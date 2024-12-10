@@ -5,6 +5,7 @@ export interface MediaType {
     attachment?: string;
     attachmentURL?: string;
     languagecode: string;
+    speakernumber: string;
     customvocabulary: string;
     emailto: string;
 }

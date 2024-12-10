@@ -11,6 +11,7 @@
     ]
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "^3.699.0",
     "sst": "*"
   },
   "devDependencies": {

@@ -14,7 +14,8 @@ export default function NewMedia() {
     const file = useRef<null | File>(null);
     const nav = useNavigate();
     const [title, setTitle] = useState("");
-    const [languagecode, setLanguagecode] = useState("");
+    const [languagecode, setLanguagecode] = useState("ja-JP");
+    const [speakernumber, setSpeakernumber] = useState("0");
     const [customvocabulary, setCustomvocabulary] = useState("");
     const [emailto, setEmailto] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +33,10 @@ export default function NewMedia() {
         return API.post("media", "/media", {
             body: media,
         });
+    }
+
+    function createTranscription(id: string) {
+        return API.post("media", `/media/${id}`,{});
     }
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -53,7 +58,9 @@ export default function NewMedia() {
                 ? await s3Upload(file.current)
                 : undefined;
       
-          await createMedia({ title, attachment, languagecode, customvocabulary, emailto });
+          const mediaresponse = await createMedia({ title, attachment, languagecode, speakernumber, customvocabulary, emailto });
+          const { mediaId } = mediaresponse
+          await createTranscription(mediaId);
           nav("/");
         } catch (e) {
             onError(e);
@@ -65,6 +72,7 @@ export default function NewMedia() {
         <div className="NewMedia">
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="title">
+                    <Form.Label>Title</Form.Label>
                     <Form.Control
                         value={title}
                         as="textarea"
@@ -72,20 +80,36 @@ export default function NewMedia() {
                     />
                 </Form.Group>
                 <Form.Group controlId="languagecode">
+                    <Form.Label>Language Code</Form.Label>
                     <Form.Control
                         value={languagecode}
-                        as="textarea"
+                        as="select"
                         onChange={(e) => setLanguagecode(e.target.value)}
+                    >
+                        <option value="ja-JP">ja-JP</option>
+                        <option value="en-US">en-US</option>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group controlId="speakernumber">
+                    <Form.Label>Number of Speakers</Form.Label>
+                    <Form.Control
+                        value={speakernumber}
+                        as="textarea"
+                        onChange={(e) => setSpeakernumber(e.target.value)}
                     />
                 </Form.Group>
                 <Form.Group controlId="customvocabulary">
+                    <Form.Label>Custom Vocabulary</Form.Label>
                     <Form.Control
                         value={customvocabulary}
-                        as="textarea"
+                        as="select"
                         onChange={(e) => setCustomvocabulary(e.target.value)}
-                    />
+                    >
+                        <option value="">None</option>
+                    </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="emailto">
+                    <Form.Label>Email</Form.Label>
                     <Form.Control
                         value={emailto}
                         as="textarea"

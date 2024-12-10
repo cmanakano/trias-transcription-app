@@ -22,6 +22,7 @@ export const main = Util.handler(async (event) => {
       ":attachment": data.attachment || null,
       ":title": data.title || null,
       ":languagecode": data.languagecode || null,
+      ":speakernumber": data.speakernumber || null,
       ":customvocabulary": data.customvocabulary || null,
       ":emailto": data.emailto || null,
     },
